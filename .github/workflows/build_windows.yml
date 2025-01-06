@@ -27,10 +27,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel
 
-    - name: Install PyYAML separately
-      run: |
-        pip install --no-build-isolation PyYAML==5.4.1
-
     - name: Install project dependencies
       run: |
         pip install -r requirements.txt
@@ -41,14 +37,14 @@ jobs:
 
     - name: Build executable
       run: |
-        EXE_NAME="mapeditor_ubuntu"
-        pyinstaller --onefile --windowed --distpath dist/ubuntu --name $EXE_NAME main.py
+        EXE_NAME="mht2MarkdownGui_ubuntu"
+        pyinstaller --onefile --windowed --distpath dist/ubuntu --name $EXE_NAME mht2MarkdownGui.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: ubuntu-executable
-        path: dist/ubuntu/mapeditor_ubuntu
+        path: dist/ubuntu/mht2MarkdownGui_ubuntu
 
   build-windows:
     runs-on: windows-latest
@@ -67,10 +63,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel
 
-    - name: Install PyYAML separately
-      run: |
-        pip install --no-build-isolation PyYAML==5.4.1
-
     - name: Install project dependencies
       run: |
         pip install -r requirements.txt
@@ -81,14 +73,14 @@ jobs:
 
     - name: Build executable
       run: |
-        $env:EXE_NAME="mapeditor_windows"
-        pyinstaller --onefile --windowed --distpath dist/windows --name $env:EXE_NAME main.py
+        $env:EXE_NAME="mht2MarkdownGui_windows"
+        pyinstaller --onefile --windowed --distpath dist/windows --name $env:EXE_NAME mht2MarkdownGui.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: windows-executable
-        path: dist/windows/mapeditor_windows.exe
+        path: dist/windows/mht2MarkdownGui_windows.exe
 
   upload-release:
     runs-on: ubuntu-latest
@@ -127,8 +119,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: mapeditor_ubuntu
-        asset_name: mapeditor_ubuntu
+        asset_path: mht2MarkdownGui_ubuntu
+        asset_name: mht2MarkdownGui_ubuntu
         asset_content_type: application/octet-stream
 
     - name: Upload Release Asset (Windows)
@@ -137,6 +129,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: mapeditor_windows.exe
-        asset_name: mapeditor_windows.exe
+        asset_path: mht2MarkdownGui_windows.exe
+        asset_name: mht2MarkdownGui_windows.exe
         asset_content_type: application/octet-stream

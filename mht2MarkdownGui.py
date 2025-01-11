@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from tkinter import Tk, Button, filedialog, messagebox, Label
 from tkinter.ttk import Progressbar, Style
+import subprocess
 
 __author__ = "Kevin C. Jones"
 __email__ = "jonesckevin@proton.me"
@@ -77,6 +78,22 @@ def extract_images_and_convert_to_md(mht_file, convert_to_png, progress_callback
             progress_callback(50 + (i + 1) / total_images * 50)  # Continue progress from 50% to 100%
 
     print(f"Markdown文件和图像已保存到 {output_images_dir}")
+
+    # Open the file explorer at the output directory
+    open_file_explorer(output_dir)
+
+
+def open_file_explorer(directory):
+    try:
+        if os.name == 'nt':  # Windows
+            os.startfile(directory)
+        elif os.name == 'posix':
+            if 'darwin' in os.sys.platform:  # macOS
+                subprocess.run(['open', directory])
+            else:  # Assume Linux
+                subprocess.run(['xdg-open', directory])
+    except Exception as e:
+        print(f"Could not open file explorer: {e}")
 
 
 def select_and_process_file():

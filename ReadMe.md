@@ -30,4 +30,12 @@
 
 `pyinstaller --onefile --windowed mht2MarkdownGui.py`
 
-# 打开软件，选择MHT文件，进度条结束，查看MHT同目录下的同名文件夹，开始编辑Markdown 
+### 打开软件，选择MHT文件，进度条结束，查看MHT同目录下的同名文件夹，开始编辑Markdown 
+
+## todo
+1. [ ] Excel    转 Markdown
+2. [ ] pdf      转 Markdown
+
+3. [ ] Markdown 转 pdf
+4. [ ] Markdown 转 Excel
+5. [ ] Markdown 转 html

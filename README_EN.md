@@ -30,4 +30,4 @@
 
 `pyinstaller --onefile --windowed mht2MarkdownGui.py`
 
-# Open the software, select the MHT file, and once the progress bar finishes, check the folder with the same name as the MHT file in the same directory, and start editing the Markdown 
+### Open the software, select the MHT file, and once the progress bar finishes, check the folder with the same name as the MHT file in the same directory, and start editing the Markdown 

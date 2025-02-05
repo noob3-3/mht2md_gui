@@ -3,6 +3,7 @@ from tkinter import filedialog, messagebox
 import ttkbootstrap as ttk
 from Conversions.Excel2md import ExcelToMarkdownConverter
 from Conversions.mht2md import MHTToMarkdownConverter
+from Conversions.pdf2md import PdfToMarkdownConverter
 
 
 # GUI Application
@@ -30,7 +31,7 @@ class ConverterApp:
         self.option_menu = ttk.Combobox(
             self.root,
             textvariable=self.conversion_type,
-            values=["MHT to Markdown", "Excel to Markdown"],
+            values=["MHT to Markdown", "Excel to Markdown","PDF to Markdown"],
             state="readonly",
         )
         self.option_menu.set("选择转换类型")
@@ -50,9 +51,11 @@ class ConverterApp:
 
     def select_file(self):
         self.selected_file = filedialog.askopenfilename(
-            filetypes=[("All Supported Files", "*.mht;*.xlsx"),
+            filetypes=[("All Supported Files", "*.mht;*.xlsx;*.pdf"),
                        ("MHT files", "*.mht"),
-                       ("Excel files", "*.xlsx")]
+                       ("Excel files", "*.xlsx"),
+                       ("PDF files", "*.pdf")
+                       ]
         )
         if self.selected_file:
             self.file_label["text"] = f"已选择文件: {os.path.basename(self.selected_file)}"
@@ -69,6 +72,8 @@ class ConverterApp:
             self.converter = MHTToMarkdownConverter(self.selected_file, output_dir)
         elif conversion_type == "Excel to Markdown":
             self.converter = ExcelToMarkdownConverter(self.selected_file, output_dir)
+        elif conversion_type == "PDF to Markdown":
+            self.converter = PdfToMarkdownConverter(self.selected_file, output_dir)
         else:
             messagebox.showerror("错误", "请选择转换类型！")
             return

@@ -2,7 +2,6 @@
 import email
 import os
 import re
-import subprocess
 from email import policy
 from PIL import Image
 from bs4 import BeautifulSoup
@@ -75,17 +74,3 @@ class MHTToMarkdownConverter(FileConverter):
         progress_callback(100)
         return f"Markdown文件已生成到: {md_file_path}"
         # Open the file explorer at the output directory
-        self.open_file_explorer(output_dir)
-
-    def open_file_explorer(self,directory):
-        try:
-            if os.name == 'nt':  # Windows
-                os.startfile(directory)
-            elif os.name == 'posix':
-                if 'darwin' in os.sys.platform:  # macOS
-                    subprocess.run(['open', directory])
-                else:  # Assume Linux
-                    subprocess.run(['xdg-open', directory])
-        except Exception as e:
-            print(f"Could not open file explorer: {e}")
-
